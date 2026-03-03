@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#1a1a2e">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="dexbgd Profile Test"
+            android:textSize="24sp"
+            android:textColor="#e94560"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ready. Attach agent, then press buttons."
+            android:textColor="#aaaaaa"
+            android:textSize="12sp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Crypto -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="bp-crypto"
+            android:textColor="#e94560"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp" />
+
+        <Button
+            android:id="@+id/btn_crypto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="AES + SHA256 + HMAC + KeyGen"
+            android:layout_marginTop="4dp" />
+
+        <!-- Network -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="bp-network"
+            android:textColor="#e94560"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp" />
+
+        <Button
+            android:id="@+id/btn_network"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="HTTP GET + Socket connect"
+            android:layout_marginTop="4dp" />
+
+        <!-- Exec -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="bp-exec"
+            android:textColor="#e94560"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp" />
+
+        <Button
+            android:id="@+id/btn_exec"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Runtime.exec + ProcessBuilder"
+            android:layout_marginTop="4dp" />
+
+        <!-- Loader / Reflection -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="bp-loader"
+            android:textColor="#e94560"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp" />
+
+        <Button
+            android:id="@+id/btn_loader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="DexClassLoader + InMemoryDex + Reflect"
+            android:layout_marginTop="4dp" />
+
+        <!-- Exfil -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="bp-exfil"
+            android:textColor="#e94560"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp" />
+
+        <Button
+            android:id="@+id/btn_exfil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TelephonyManager + ContentResolver"
+            android:layout_marginTop="4dp" />
+
+        <!-- Detect (root/tamper) -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="bp-detect"
+            android:textColor="#e94560"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp" />
+
+        <Button
+            android:id="@+id/btn_detect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Root/Tamper Detection APIs"
+            android:layout_marginTop="4dp" />
+
+        <TextView
+            android:id="@+id/detect_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Root detected: –"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="4dp" />
+
+        <!-- All -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#333333"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp" />
+
+        <Button
+            android:id="@+id/btn_all"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="RUN ALL"
+            android:textStyle="bold" />
+
+        <!-- Xref test strings -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="xref test (hardcoded strings)"
+            android:textColor="#e94560"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp" />
+
+        <Button
+            android:id="@+id/btn_xref"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Use hardcoded URLs + keys"
+            android:layout_marginTop="4dp" />
+
+    </LinearLayout>
+</ScrollView>
