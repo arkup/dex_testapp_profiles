@@ -38,6 +38,23 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
 ### 3. Launch and attach the agent
 
 ```bash
+# easiest is to start dexbgd server and use "launch" command
+.\dexbgd\server>cargo run
+
+# then type the following command line:
+launch com.test.profiletest
+
+# done set breakpoint
+# bp MainActivity.testDetect
+
+# or set breakpoint profiles e.g.
+bp-detect
+
+```
+
+Alternatively, you can type all the `launch` commands manually:
+
+```bash
 # Forward the dexbgd control socket
 adb forward tcp:12345 localabstract:dexbgd
 
