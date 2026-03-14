@@ -143,6 +143,35 @@
             android:layout_marginTop="6dp"
             android:layout_marginBottom="4dp" />
 
+        <!-- JNI monitor -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="jni monitor"
+            android:textColor="#e94560"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp" />
+
+        <Button
+            android:id="@+id/btn_jni"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Native Protector (RegisterNatives)"
+            android:layout_marginTop="4dp" />
+
+        <TextView
+            android:id="@+id/jni_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Result: –"
+            android:textColor="#ffffff"
+            android:textSize="13sp"
+            android:fontFamily="monospace"
+            android:gravity="center"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="4dp" />
+
         <!-- All -->
         <View
             android:layout_width="match_parent"

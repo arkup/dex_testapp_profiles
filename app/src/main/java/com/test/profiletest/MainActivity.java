@@ -61,6 +61,7 @@ public class MainActivity extends Activity {
     private static final String TAG = "ProfileTest";
     private TextView status;
     private TextView detectResult;
+    private TextView jniResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +70,7 @@ public class MainActivity extends Activity {
 
         status = findViewById(R.id.status);
         detectResult = findViewById(R.id.detect_result);
+        jniResult = findViewById(R.id.jni_result);
 
         findViewById(R.id.btn_crypto).setOnClickListener(v -> runOnThread(this::testCrypto));
         findViewById(R.id.btn_network).setOnClickListener(v -> runOnThread(this::testNetwork));
@@ -81,6 +83,7 @@ public class MainActivity extends Activity {
             String label = result == 1 ? "Root: DETECTED (1)" : "Root: not detected (0)";
             runOnUiThread(() -> detectResult.setText(label));
         }));
+        findViewById(R.id.btn_jni).setOnClickListener(v -> runOnThread(this::testNative));
         findViewById(R.id.btn_all).setOnClickListener(v -> runOnThread(this::testAll));
 
         setStatus("Ready. Attach agent, set breakpoints, then press buttons.");
@@ -589,6 +592,47 @@ public class MainActivity extends Activity {
     }
 
     // =====================================================================
+    // jni monitor: NativeProtector via RegisterNatives
+    // =====================================================================
+
+    /**
+     * Calls all four native methods and displays their results.
+     *
+     * The library uses RegisterNatives (not Java_... symbols) so the bindings
+     * are invisible to static analysis — exactly what jni monitor captures.
+     *
+     * Workflow:
+     *   1. jni monitor              (start capturing RegisterNatives)
+     *   2. Press this button        (library loads, JNI_OnLoad fires, bindings captured)
+     *   3. Key 5 -> JNI tab         (see libnative_protector.so+0xXXXX for each method)
+     *   4. jni redirect libnative_protector.so+0xXXXX block  (or use class sig)
+     *   5. Press button again       (see return values change in the result display)
+     */
+    private void testNative() {
+        setStatus("Running JNI native protector test...");
+        try {
+            NativeProtector guard = new NativeProtector();
+
+            boolean protected_  = guard.isProtected();
+            int     integrity   = guard.checkIntegrity();
+            String  licenseKey  = guard.getLicenseKey();
+            boolean debugger    = guard.isDebuggerPresent();
+
+            String result = "isProtected=" + protected_
+                + "  checkIntegrity=" + integrity
+                + "\nlicenseKey=" + licenseKey
+                + "\nisDebugger=" + debugger;
+
+            Log.i(TAG, "NativeProtector: " + result);
+            runOnUiThread(() -> jniResult.setText(result));
+            setStatus("JNI test done — redirect methods and press again to see change");
+        } catch (Exception e) {
+            setStatus("JNI FAILED: " + e.getMessage());
+            Log.e(TAG, "native", e);
+        }
+    }
+
+    // =====================================================================
     // Run all tests
     // =====================================================================
 
@@ -603,6 +647,7 @@ public class MainActivity extends Activity {
         String label = rootResult == 1 ? "Root: DETECTED (1)" : "Root: not detected (0)";
         runOnUiThread(() -> detectResult.setText(label));
         testXrefStrings();
+        testNative();
         setStatus("ALL tests completed");
     }
 }

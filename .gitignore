@@ -29,6 +29,7 @@ local.properties
 
 # NDK
 obj/
+.cxx/
 
 # OS files
 .DS_Store
