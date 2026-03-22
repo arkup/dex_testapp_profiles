@@ -168,6 +168,33 @@ jni restore Lcom/test/profiletest/NativeProtector; checkIntegrity ()I
 
 **Right-click shortcut:** In the JNI tab, right-click any binding to get a context menu showing the function name with Redirect / Restore options — no typing required. Right-click on an empty area to start/stop monitoring.
 
+## Break-on-Access Watchpoints
+
+The `ba` command sets a field watchpoint that fires when a field is read or written,
+regardless of which method or thread does it. Suspends the thread and shows stack/locals/dis
+on hit, same UX as a breakpoint.
+
+```
+ba Lcom/test/profiletest/MainActivity; detectResult       # break on read or write
+ba w Lcom/test/profiletest/MainActivity; detectResult     # write only
+ba r Lcom/test/profiletest/MainActivity; jniResult        # read only
+
+bad 1    # delete watchpoint #1
+bal      # list all active watchpoints
+```
+
+**Suggested test targets:**
+
+| Field | Mode | What it shows |
+|-------|------|---------------|
+| `detectResult` | `w` | Fires when root detection result is written — lands at the exact bytecode that sets it, with full call stack from the detection logic |
+| `jniResult` | `w` | Written from the background thread running `testNative()` — demonstrates cross-thread watchpoint firing |
+| `status` | `w` | Written in `onCreate` — fires immediately on startup |
+
+**Note:** `static final String` constants (like `AES_KEY_STRING`, `API_KEY`) are inlined
+by d8 as `const-string` bytecodes at every use site, so read watchpoints on them will
+never fire. Use `dis` to confirm — you will see `const-string` rather than `sget-object`.
+
 ## Notes
 
 - Network tests hit `httpbin.org/get`; the socket test intentionally fails (connects to `127.0.0.1:9999`).
